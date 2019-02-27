@@ -1,0 +1,377 @@
+﻿
+  <p align=center style='text-align:center'>A GIS Analysis of Traffic Accidents in
+    the City of Apache Junction</p>
+  <p align=center style='text-align:center'>A Graduate Research Project</p>
+  <p align=center style='text-align:center'>Advisor and Committee Chair: Dr. Ray
+    Huang</p>
+  <p align=center style='text-align:center'><span lang=DE>Committee members:</span></p>
+  <p align=center style='text-align:center'><span lang=DE>Dr. Erik Schiefer</span></p>
+  <p align=center style='text-align:center'><span lang=DE>J.C. Kliner</span></p>
+  <p align=center style='text-align:center'>December 2017</p>
+  <p align=center style='text-align:center'>Northern Arizona University</p>
+  <p align=center style='text-align:center'>Box 15300</p>
+  <p align=center style='text-align:center'>Flagstaff, AZ 86001</p>
+  <p align=center style='text-align:center'>928-214-8214</p>
+  <p align=center style='text-align:center'>Table of Contents</p>
+  
+  <br><br><div align="center"><img src="assets/Grade.png" width="800"></div><br><br>
+  
+<div align=center>
+    <table border=1 cellspacing=0 cellpadding=0>
+      <tr>
+        <td width=274><p><span style='"Times New Roman"'>Abstract</span></p></td>
+        <td width=269><p><span style='"Times New Roman"'>2</span></p></td>
+      </tr>
+      <tr>
+        <td width=274><p><span style='"Times New Roman"'>Problem
+            Statement and Introduction</span></p></td>
+        <td width=269><p><span style='"Times New Roman"'>2</span></p></td>
+      </tr>
+      <tr>
+        <td width=274><p><span style='"Times New Roman"'>Methodology</span></p></td>
+        <td width=269><p><span style='"Times New Roman"'>3</span></p></td>
+      </tr>
+      <tr>
+        <td width=274><p><span style='"Times New Roman"'>  Description of the dataset</span></p></td>
+        <td width=269><p><span style='"Times New Roman"'>3</span></p></td>
+      </tr>
+      <tr>
+        <td width=274><p><span style='"Times New Roman"'>  Spatial Analysis Methods Used</span></p></td>
+        <td width=269><p><span style='"Times New Roman"'>5</span></p></td>
+      </tr>
+      <tr>
+        <td width=274><p><span style='"Times New Roman"'>  Data Cleanup and Geocoding</span></p></td>
+        <td width=269><p><span style='"Times New Roman"'>5</span></p></td>
+      </tr>
+      <tr>
+        <td width=274><p><span style='"Times New Roman"'>  Data Analysis in ArcGIS</span></p></td>
+        <td width=269><p><span style='"Times New Roman"'>7</span></p></td>
+      </tr>
+      <tr>
+        <td width=274><p><span style='"Times New Roman"'>Results</span></p></td>
+        <td width=269><p><span style='"Times New Roman"'>9</span></p></td>
+      </tr>
+      <tr>
+        <td width=274><p><span style='"Times New Roman"'>Conclusion</span></p></td>
+        <td width=269><p><span style='"Times New Roman"'>11</span></p></td>
+      </tr>
+    </table>
+  </div>
+  <h1><span style='"Times New Roman"'>&nbsp;</span></h1>
+  <br clear=all style='page-break-before:always'>
+  <h1><span style='"Times New Roman"'>Abstract</span></h1>
+  <p>Data on the incidence of traffic accidents, especially where they occur most
+    often and their severity, is important to city planners and decision makers as
+    they decide on where to spend Public Works dollars and how to meet citizen
+    safety goals. Traffic bottlenecks, unsafe intersections, and other traffic
+    hazards are often a detriment to motorist safety and can result in diminished
+    community living and higher health care costs. As a result, highway departments
+    and metropolitan area elected officials initiate studies of traffic patterns in
+    their cities to help them mitigate these issues. This report chronicles a
+    simple analysis of a large traffic incident dataset with Geographic Information
+    Services (GIS) tools in order to identify those areas of the City of Apache
+    Junction that have a high incidence of traffic accidents. The ArcGIS Desktop
+    and ArcGIS SDE suites, from ESRI, are the official GIS software platforms
+    chosen by the city for GIS data storage, processing, and reporting. Two
+    analysis methods supported by the ArcGIS software were used: Average Nearest
+    Neighbor, and Ripley’s K. The author of this report was a graduate intern at
+    the City of Apache Junction’s Development Services Department, where he was
+    assigned to write a GIS implementation plan for the city. The plan was
+    completed in late December 2017, and the city and the author hopes that it will
+    make a good case for the city to finally get the budget to purchase an
+    Enterprise License Agreement from ESRI, so that the city will gain access to
+    the ArcGIS extensions, one of which was used to conduct this research. </p>
+  <p><i>Keywords: GIS, spatial, analysis, analyses, <span class=SpellE>ripleys</span>,
+    accident, incidence, metropolitan, quantitative, research.</i></p>
+  <h1><span style='"Times New Roman"'>Problem Statement
+    and Introduction</span></h1>
+  <p>Incidents of traffic accidents are on the rise in the city of Apache
+    Junction, Arizona, as they are in almost every city worldwide. The city’s
+    summer and winter populations are rising, and the growth of development within
+    the city’s municipal boundaries has dramatically increased over the last 5
+    years. The city is landlocked between federal, state, and county lands, and the
+    city of Mesa. This means that expanding the city’s municipal boundaries is not
+    an option, and therefore growth must be managed from within. However, some of
+    the city’s most important arterials are beginning to feel the strain, in the
+    form of wear and tear, the desert climate, and outdated traffic control
+    equipment. At the same time, city Public Works budgets are decreasing. A
+    process was needed to gain an understanding of where the most traffic accidents
+    were occurring, so that Public Works personnel could make better informed
+    decisions about what work to prioritize. Also, the Traffic Division of the
+    Police Department could benefit by knowing what areas of the city to prioritize
+    during duty shifts.</p>
+  <p>Within the last few years, the city has created a GIS department and formed
+    a GIS steering committee to modernize their data processing operations,
+    especially for the Development Services department, which is responsible for
+    approving development projects, maintaining city building codes, city planning
+    projects, and economic development. A GIS coordinator was hired, and initially
+    assigned to the Public Works department. This position was moved to the
+    Development Services department about 3 years ago. Within the last 6 months,
+    the city has purchased and configured an ArcGIS SDE Enterprise server and
+    software. The new centralized, enterprise-class GIS system has provided many
+    benefits, including multi-user support, dataset versioning, data archiving and
+    backup, and data verification and accuracy maintenance. </p>
+  <p>However, it was not within the city’s budget to also purchase ESRI’s ArcGIS
+    Enterprise License Agreement, which would allow the city to use the most
+    important add-on tools in the ArcGIS family that are not included in the basic
+    ArcGIS packages. These tools include the Spatial Analyst, Network Analyst, and
+    especially the <span class=SpellE>Geostatistical</span> Analyst, which contains
+    the analytical tools necessary for conducting a research project similar to the
+    one that this paper chronicles. The upshot is that the GIS coordinator for the
+    city has the expertise to perform the analyses, but does not have the tools.
+    Thus, the city needed to find another entity that did have the required
+    hardware and software to <span class=SpellE>geostatistically</span> analyze
+    their traffic accident data, and report the results back to the GIS department
+    and city officials.</p>
+  <h1><span style='"Times New Roman"'>Methodology</span></h1>
+  <p><b>Description of the dataset</b></p>
+  <p>Shortly before the end of the paid portion of my internship, I asked my
+    supervisor if there were any departments that had GIS data that I could analyze
+    for this project. He told me he would ask around, and at the end of the paid
+    portion of my internship I received an email from him, which included a point
+    dataset from The City of Apache Junctions’ Police Department shortly after I
+    completed the paid portion of my internship. This dataset contained traffic accident
+    data recorded for the 5 year period 2012 – 2017. A sample of the original
+    dataset that I received is shown below.</p>
+  <div><img width=709 height=187
+src="assets/image001.png"> </div>
+  <p><i><span style='font-size:10.0pt;
+line-height:200%'>Fig. 45: A sample of the original dataset.</span></i></p>
+  <p>The data was not validated as it was being recorded. This was obvious at
+    first glance; as you can see, some observations had missing elements, many
+    elements had spelling and other typographical errors, and in some cases two or
+    more observations were in fact duplicates, but the wording in one or more of
+    them were out of order.</p>
+  <p>The dataset contained approximately 3,500 observations. There were two types
+    of observations: address, and intersection. The street names in intersection
+    observations were delimited by two slashes. It was apparent that I would need
+    to do some data cleanup before attempting to geocode the observations. I was
+    not informed as to what the <span class=SpellE>CallNumber</span> and <span
+class=SpellE>OCAnumber</span> elements were, but I did receive a breakdown of
+    the Complaint Codes. These are shown below.</p>
+  <p><span style='font-size:10.0pt;font-family:"Courier New"'>960
+    – Private Property</span></p>
+  <p><span style='font-size:10.0pt;font-family:"Courier New"'>960A
+    – Private Property / Officer Involved</span></p>
+  <p><span style='font-size:10.0pt;font-family:"Courier New"'>960C
+    – Private Property / H&amp;R</span></p>
+  <p><span style='font-size:10.0pt;font-family:"Courier New"'>960D
+    – Private Property / DUI</span></p>
+  <p><span style='font-size:10.0pt;font-family:"Courier New"'>961
+    – Non-Injury  </span></p>
+  <p><span style='font-size:10.0pt;font-family:"Courier New"'>961A
+    – Non-Injury / Officer Involved</span></p>
+  <p><span style='font-size:10.0pt;font-family:"Courier New"'>961C
+    – Non-Injury / H&amp;R</span></p>
+  <p><span style='font-size:10.0pt;font-family:"Courier New"'>961D
+    – Non-Injury / DUI</span></p>
+  <p><span style='font-size:10.0pt;font-family:"Courier New"'>962
+    – Injury      </span></p>
+  <p><span style='font-size:10.0pt;font-family:"Courier New"'>962A
+    – Injury / Officer Involved</span></p>
+  <p><span style='font-size:10.0pt;font-family:"Courier New"'>962C
+    – Injury / H&amp;R</span></p>
+  <p><span style='font-size:10.0pt;font-family:"Courier New"'>962D
+    – Injury / DUI</span></p>
+  <p><span style='font-size:10.0pt;font-family:"Courier New"'>963
+    – Fatality    </span></p>
+  <p><span style='font-size:10.0pt;font-family:"Courier New"'>963A
+    – Fatality / Officer Involved</span></p>
+  <p><span style='font-size:10.0pt;font-family:"Courier New"'>963C
+    – Fatality / H&amp;R</span></p>
+  <p><span style='font-size:10.0pt;font-family:"Courier New"'>963D
+    – Fatality / DUI</span></p>
+  <p><i><span style='font-size:10.0pt;
+line-height:200%'>Fig. 45: Breakdown of Complaint Code nominal data element.</span></i></p>
+  <br clear=all style='page-break-before:always'>
+  <p><b>Spatial Analysis Methods Used</b></p>
+  <p>It was recommended to me that I use the following spatial analysis methods: <i>Nearest Neighbor</i>, and <i>Ripley’s K</i>. Both of these point pattern
+    analysis methods measure a dataset’s degree of clustering, dispersion, and
+    randomness. This statistic can be important when testing the dataset for
+    normality (is it a normal distribution). </p>
+  <p>The Nearest Neighbor function calculates average distances between point
+    neighbors to determine if the observations in an input dataset are randomly
+    distributed and if not, the degree of clustering or dispersion. Its main output
+    is a ratio of observed and expected average distance between nearest neighbors;
+    if this ratio approaches or is equal to 1, the dataset is random. If it is less
+    than 1, the dataset has a degree of cluster (is more clustered than a random
+    pattern); if it is greater than 1, the dataset has a degree of dispersion (is
+    more dispersed than a random pattern).</p>
+  <p>The Ripley’s K function is an advanced global analysis method that can also
+    capture 2<sup>nd</sup> order local variations in the data. It can also show its
+    degrees of randomness, clustering, and dispersion over multiple spatial scales.
+    It first sets an initial lag distance, then uses an iterative procedure to count
+    points and measure the space between them. Eventually, the method comes up with
+    a probability function of points occurring at varying lag distances. The goal
+    of Ripley’s K analysis is to produce a probability function <i>K(h)</i> that approaches or equals 
+    
+    <span><?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="3.725ex" height="2.478ex" viewBox="0 -958.8 1603.9 1067.1" role="img" focusable="false" style="vertical-align: -0.252ex;" aria-hidden="true">
+<defs id="MathJax_SVG_glyphs"><path stroke-width="1" id="MJMATHI-78" d="M52 289Q59 331 106 386T222 442Q257 442 286 424T329 379Q371 442 430 442Q467 442 494 420T522 361Q522 332 508 314T481 292T458 288Q439 288 427 299T415 328Q415 374 465 391Q454 404 425 404Q412 404 406 402Q368 386 350 336Q290 115 290 78Q290 50 306 38T341 26Q378 26 414 59T463 140Q466 150 469 151T485 153H489Q504 153 504 145Q504 144 502 134Q486 77 440 33T333 -11Q263 -11 227 52Q186 -10 133 -10H127Q78 -10 57 16T35 71Q35 103 54 123T99 143Q142 143 142 101Q142 81 130 66T107 46T94 41L91 40Q91 39 97 36T113 29T132 26Q168 26 194 71Q203 87 217 139T245 247T261 313Q266 340 266 352Q266 380 251 392T217 404Q177 404 142 372T93 290Q91 281 88 280T72 278H58Q52 284 52 289Z"></path><path stroke-width="1" id="MJMAIN-3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path><path stroke-width="1" id="MJMAIN-73" d="M295 316Q295 356 268 385T190 414Q154 414 128 401Q98 382 98 349Q97 344 98 336T114 312T157 287Q175 282 201 278T245 269T277 256Q294 248 310 236T342 195T359 133Q359 71 321 31T198 -10H190Q138 -10 94 26L86 19L77 10Q71 4 65 -1L54 -11H46H42Q39 -11 33 -5V74V132Q33 153 35 157T45 162H54Q66 162 70 158T75 146T82 119T101 77Q136 26 198 26Q295 26 295 104Q295 133 277 151Q257 175 194 187T111 210Q75 227 54 256T33 318Q33 357 50 384T93 424T143 442T187 447H198Q238 447 268 432L283 424L292 431Q302 440 314 448H322H326Q329 448 335 442V310L329 304H301Q295 310 295 316Z"></path><path stroke-width="1" id="MJMAIN-69" d="M69 609Q69 637 87 653T131 669Q154 667 171 652T188 609Q188 579 171 564T129 549Q104 549 87 564T69 609ZM247 0Q232 3 143 3Q132 3 106 3T56 1L34 0H26V46H42Q70 46 91 49Q100 53 102 60T104 102V205V293Q104 345 102 359T88 378Q74 385 41 385H30V408Q30 431 32 431L42 432Q52 433 70 434T106 436Q123 437 142 438T171 441T182 442H185V62Q190 52 197 50T232 46H255V0H247Z"></path><path stroke-width="1" id="MJMAIN-6E" d="M41 46H55Q94 46 102 60V68Q102 77 102 91T102 122T103 161T103 203Q103 234 103 269T102 328V351Q99 370 88 376T43 385H25V408Q25 431 27 431L37 432Q47 433 65 434T102 436Q119 437 138 438T167 441T178 442H181V402Q181 364 182 364T187 369T199 384T218 402T247 421T285 437Q305 442 336 442Q450 438 463 329Q464 322 464 190V104Q464 66 466 59T477 49Q498 46 526 46H542V0H534L510 1Q487 2 460 2T422 3Q319 3 310 0H302V46H318Q379 46 379 62Q380 64 380 200Q379 335 378 343Q372 371 358 385T334 402T308 404Q263 404 229 370Q202 343 195 315T187 232V168V108Q187 78 188 68T191 55T200 49Q221 46 249 46H265V0H257L234 1Q210 2 183 2T145 3Q42 3 33 0H25V46H41Z"></path><path stroke-width="1" id="MJMATHI-3C0" d="M132 -11Q98 -11 98 22V33L111 61Q186 219 220 334L228 358H196Q158 358 142 355T103 336Q92 329 81 318T62 297T53 285Q51 284 38 284Q19 284 19 294Q19 300 38 329T93 391T164 429Q171 431 389 431Q549 431 553 430Q573 423 573 402Q573 371 541 360Q535 358 472 358H408L405 341Q393 269 393 222Q393 170 402 129T421 65T431 37Q431 20 417 5T381 -10Q370 -10 363 -7T347 17T331 77Q330 86 330 121Q330 170 339 226T357 318T367 358H269L268 354Q268 351 249 275T206 114T175 17Q164 -11 132 -11Z"></path><path stroke-width="1" id="MJMATHI-68" d="M137 683Q138 683 209 688T282 694Q294 694 294 685Q294 674 258 534Q220 386 220 383Q220 381 227 388Q288 442 357 442Q411 442 444 415T478 336Q478 285 440 178T402 50Q403 36 407 31T422 26Q450 26 474 56T513 138Q516 149 519 151T535 153Q555 153 555 145Q555 144 551 130Q535 71 500 33Q466 -10 419 -10H414Q367 -10 346 17T325 74Q325 90 361 192T398 345Q398 404 354 404H349Q266 404 205 306L198 293L164 158Q132 28 127 16Q114 -11 83 -11Q69 -11 59 -2T48 16Q48 30 121 320L195 616Q195 629 188 632T149 637H128Q122 643 122 645T124 664Q129 683 137 683Z"></path><path stroke-width="1" id="MJMAIN-32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></defs>
+<g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#MJMATHI-3C0" x="0" y="0"></use><g transform="translate(573,0)"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#MJMATHI-68" x="0" y="0"></use><use transform="scale(0.707)" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#MJMAIN-32" x="815" y="583"></use></g></g>
+</svg></span> . 
+    
+    If the values of K(h) (number of points at
+    lag distance h) approach proportionality to the radius of the circle 
+    
+    <span><?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="3.725ex" height="2.478ex" viewBox="0 -958.8 1603.9 1067.1" role="img" focusable="false" style="vertical-align: -0.252ex;" aria-hidden="true">
+<defs id="MathJax_SVG_glyphs"><path stroke-width="1" id="MJMATHI-78" d="M52 289Q59 331 106 386T222 442Q257 442 286 424T329 379Q371 442 430 442Q467 442 494 420T522 361Q522 332 508 314T481 292T458 288Q439 288 427 299T415 328Q415 374 465 391Q454 404 425 404Q412 404 406 402Q368 386 350 336Q290 115 290 78Q290 50 306 38T341 26Q378 26 414 59T463 140Q466 150 469 151T485 153H489Q504 153 504 145Q504 144 502 134Q486 77 440 33T333 -11Q263 -11 227 52Q186 -10 133 -10H127Q78 -10 57 16T35 71Q35 103 54 123T99 143Q142 143 142 101Q142 81 130 66T107 46T94 41L91 40Q91 39 97 36T113 29T132 26Q168 26 194 71Q203 87 217 139T245 247T261 313Q266 340 266 352Q266 380 251 392T217 404Q177 404 142 372T93 290Q91 281 88 280T72 278H58Q52 284 52 289Z"></path><path stroke-width="1" id="MJMAIN-3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path><path stroke-width="1" id="MJMAIN-73" d="M295 316Q295 356 268 385T190 414Q154 414 128 401Q98 382 98 349Q97 344 98 336T114 312T157 287Q175 282 201 278T245 269T277 256Q294 248 310 236T342 195T359 133Q359 71 321 31T198 -10H190Q138 -10 94 26L86 19L77 10Q71 4 65 -1L54 -11H46H42Q39 -11 33 -5V74V132Q33 153 35 157T45 162H54Q66 162 70 158T75 146T82 119T101 77Q136 26 198 26Q295 26 295 104Q295 133 277 151Q257 175 194 187T111 210Q75 227 54 256T33 318Q33 357 50 384T93 424T143 442T187 447H198Q238 447 268 432L283 424L292 431Q302 440 314 448H322H326Q329 448 335 442V310L329 304H301Q295 310 295 316Z"></path><path stroke-width="1" id="MJMAIN-69" d="M69 609Q69 637 87 653T131 669Q154 667 171 652T188 609Q188 579 171 564T129 549Q104 549 87 564T69 609ZM247 0Q232 3 143 3Q132 3 106 3T56 1L34 0H26V46H42Q70 46 91 49Q100 53 102 60T104 102V205V293Q104 345 102 359T88 378Q74 385 41 385H30V408Q30 431 32 431L42 432Q52 433 70 434T106 436Q123 437 142 438T171 441T182 442H185V62Q190 52 197 50T232 46H255V0H247Z"></path><path stroke-width="1" id="MJMAIN-6E" d="M41 46H55Q94 46 102 60V68Q102 77 102 91T102 122T103 161T103 203Q103 234 103 269T102 328V351Q99 370 88 376T43 385H25V408Q25 431 27 431L37 432Q47 433 65 434T102 436Q119 437 138 438T167 441T178 442H181V402Q181 364 182 364T187 369T199 384T218 402T247 421T285 437Q305 442 336 442Q450 438 463 329Q464 322 464 190V104Q464 66 466 59T477 49Q498 46 526 46H542V0H534L510 1Q487 2 460 2T422 3Q319 3 310 0H302V46H318Q379 46 379 62Q380 64 380 200Q379 335 378 343Q372 371 358 385T334 402T308 404Q263 404 229 370Q202 343 195 315T187 232V168V108Q187 78 188 68T191 55T200 49Q221 46 249 46H265V0H257L234 1Q210 2 183 2T145 3Q42 3 33 0H25V46H41Z"></path><path stroke-width="1" id="MJMATHI-3C0" d="M132 -11Q98 -11 98 22V33L111 61Q186 219 220 334L228 358H196Q158 358 142 355T103 336Q92 329 81 318T62 297T53 285Q51 284 38 284Q19 284 19 294Q19 300 38 329T93 391T164 429Q171 431 389 431Q549 431 553 430Q573 423 573 402Q573 371 541 360Q535 358 472 358H408L405 341Q393 269 393 222Q393 170 402 129T421 65T431 37Q431 20 417 5T381 -10Q370 -10 363 -7T347 17T331 77Q330 86 330 121Q330 170 339 226T357 318T367 358H269L268 354Q268 351 249 275T206 114T175 17Q164 -11 132 -11Z"></path><path stroke-width="1" id="MJMATHI-68" d="M137 683Q138 683 209 688T282 694Q294 694 294 685Q294 674 258 534Q220 386 220 383Q220 381 227 388Q288 442 357 442Q411 442 444 415T478 336Q478 285 440 178T402 50Q403 36 407 31T422 26Q450 26 474 56T513 138Q516 149 519 151T535 153Q555 153 555 145Q555 144 551 130Q535 71 500 33Q466 -10 419 -10H414Q367 -10 346 17T325 74Q325 90 361 192T398 345Q398 404 354 404H349Q266 404 205 306L198 293L164 158Q132 28 127 16Q114 -11 83 -11Q69 -11 59 -2T48 16Q48 30 121 320L195 616Q195 629 188 632T149 637H128Q122 643 122 645T124 664Q129 683 137 683Z"></path><path stroke-width="1" id="MJMAIN-32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></defs>
+<g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#MJMATHI-3C0" x="0" y="0"></use><g transform="translate(573,0)"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#MJMATHI-68" x="0" y="0"></use><use transform="scale(0.707)" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#MJMAIN-32" x="815" y="583"></use></g></g>
+</svg></span> 
+    
+    the dataset can be considered random. If the observed values of the K(h) function
+    appear to be higher than 
+    
+    <span><?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="3.725ex" height="2.478ex" viewBox="0 -958.8 1603.9 1067.1" role="img" focusable="false" style="vertical-align: -0.252ex;" aria-hidden="true">
+<defs id="MathJax_SVG_glyphs"><path stroke-width="1" id="MJMATHI-78" d="M52 289Q59 331 106 386T222 442Q257 442 286 424T329 379Q371 442 430 442Q467 442 494 420T522 361Q522 332 508 314T481 292T458 288Q439 288 427 299T415 328Q415 374 465 391Q454 404 425 404Q412 404 406 402Q368 386 350 336Q290 115 290 78Q290 50 306 38T341 26Q378 26 414 59T463 140Q466 150 469 151T485 153H489Q504 153 504 145Q504 144 502 134Q486 77 440 33T333 -11Q263 -11 227 52Q186 -10 133 -10H127Q78 -10 57 16T35 71Q35 103 54 123T99 143Q142 143 142 101Q142 81 130 66T107 46T94 41L91 40Q91 39 97 36T113 29T132 26Q168 26 194 71Q203 87 217 139T245 247T261 313Q266 340 266 352Q266 380 251 392T217 404Q177 404 142 372T93 290Q91 281 88 280T72 278H58Q52 284 52 289Z"></path><path stroke-width="1" id="MJMAIN-3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path><path stroke-width="1" id="MJMAIN-73" d="M295 316Q295 356 268 385T190 414Q154 414 128 401Q98 382 98 349Q97 344 98 336T114 312T157 287Q175 282 201 278T245 269T277 256Q294 248 310 236T342 195T359 133Q359 71 321 31T198 -10H190Q138 -10 94 26L86 19L77 10Q71 4 65 -1L54 -11H46H42Q39 -11 33 -5V74V132Q33 153 35 157T45 162H54Q66 162 70 158T75 146T82 119T101 77Q136 26 198 26Q295 26 295 104Q295 133 277 151Q257 175 194 187T111 210Q75 227 54 256T33 318Q33 357 50 384T93 424T143 442T187 447H198Q238 447 268 432L283 424L292 431Q302 440 314 448H322H326Q329 448 335 442V310L329 304H301Q295 310 295 316Z"></path><path stroke-width="1" id="MJMAIN-69" d="M69 609Q69 637 87 653T131 669Q154 667 171 652T188 609Q188 579 171 564T129 549Q104 549 87 564T69 609ZM247 0Q232 3 143 3Q132 3 106 3T56 1L34 0H26V46H42Q70 46 91 49Q100 53 102 60T104 102V205V293Q104 345 102 359T88 378Q74 385 41 385H30V408Q30 431 32 431L42 432Q52 433 70 434T106 436Q123 437 142 438T171 441T182 442H185V62Q190 52 197 50T232 46H255V0H247Z"></path><path stroke-width="1" id="MJMAIN-6E" d="M41 46H55Q94 46 102 60V68Q102 77 102 91T102 122T103 161T103 203Q103 234 103 269T102 328V351Q99 370 88 376T43 385H25V408Q25 431 27 431L37 432Q47 433 65 434T102 436Q119 437 138 438T167 441T178 442H181V402Q181 364 182 364T187 369T199 384T218 402T247 421T285 437Q305 442 336 442Q450 438 463 329Q464 322 464 190V104Q464 66 466 59T477 49Q498 46 526 46H542V0H534L510 1Q487 2 460 2T422 3Q319 3 310 0H302V46H318Q379 46 379 62Q380 64 380 200Q379 335 378 343Q372 371 358 385T334 402T308 404Q263 404 229 370Q202 343 195 315T187 232V168V108Q187 78 188 68T191 55T200 49Q221 46 249 46H265V0H257L234 1Q210 2 183 2T145 3Q42 3 33 0H25V46H41Z"></path><path stroke-width="1" id="MJMATHI-3C0" d="M132 -11Q98 -11 98 22V33L111 61Q186 219 220 334L228 358H196Q158 358 142 355T103 336Q92 329 81 318T62 297T53 285Q51 284 38 284Q19 284 19 294Q19 300 38 329T93 391T164 429Q171 431 389 431Q549 431 553 430Q573 423 573 402Q573 371 541 360Q535 358 472 358H408L405 341Q393 269 393 222Q393 170 402 129T421 65T431 37Q431 20 417 5T381 -10Q370 -10 363 -7T347 17T331 77Q330 86 330 121Q330 170 339 226T357 318T367 358H269L268 354Q268 351 249 275T206 114T175 17Q164 -11 132 -11Z"></path><path stroke-width="1" id="MJMATHI-68" d="M137 683Q138 683 209 688T282 694Q294 694 294 685Q294 674 258 534Q220 386 220 383Q220 381 227 388Q288 442 357 442Q411 442 444 415T478 336Q478 285 440 178T402 50Q403 36 407 31T422 26Q450 26 474 56T513 138Q516 149 519 151T535 153Q555 153 555 145Q555 144 551 130Q535 71 500 33Q466 -10 419 -10H414Q367 -10 346 17T325 74Q325 90 361 192T398 345Q398 404 354 404H349Q266 404 205 306L198 293L164 158Q132 28 127 16Q114 -11 83 -11Q69 -11 59 -2T48 16Q48 30 121 320L195 616Q195 629 188 632T149 637H128Q122 643 122 645T124 664Q129 683 137 683Z"></path><path stroke-width="1" id="MJMAIN-32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></defs>
+<g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#MJMATHI-3C0" x="0" y="0"></use><g transform="translate(573,0)"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#MJMATHI-68" x="0" y="0"></use><use transform="scale(0.707)" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#MJMAIN-32" x="815" y="583"></use></g></g>
+</svg></span>
+    
+    the dataset exhibits a clustered pattern; if lower, the dataset has a degree of dispersal.</p>
+    
+  <p><b>Data Cleanup and Geocoding</b></p>
+  
+  <p>The original dataset was contained in a Microsoft Excel worksheet. I imported
+    the data into Microsoft Access in order to standardize the data types and for
+    data cleanup and normalization. I applied an ID to keep the observations unique
+    and in case the element was required during spatial analysis. Once the data was
+    in Access, I began by running a query that would update a type code to “I” if
+    the address of the accident contained the intersection delimiters:</p>
+  <p style='line-height:normal'><span style='font-size:10.0pt;font-family:"Courier New"'>UPDATE
+    Accidents SET <span class=SpellE>LocationTypeCode</span> = &quot;I&quot;</span></p>
+  <p style='line-height:normal'><span style='font-size:10.0pt;font-family:"Courier New"'>WHERE <span class=SpellE>InStr</span>(1,[<span class=SpellE>FullLocation</span>],&quot;//&quot;)
+    &gt; 0;</span></p>
+  <p>Then I updated the type code for the rest of the observations to “A”, and
+    replaced the “//” delimiter to @. To standardize the addresses of the address
+    observations, I created four additional elements in the dataset: <span
+style='font-family:"Courier New"'>address number, direction indicator, street
+    name, and suffix</span>. I then used the following query to update these fields
+    from the original address element, called <span class=SpellE><span
+style='font-family:"Courier New"'>FullLocation</span></span>:</p>
+  <p style='line-height:normal'><span style='font-size:10.0pt;font-family:"Courier New"'>UPDATE
+    Accidents </span></p>
+  <p style='line-height:normal'><span style='font-size:10.0pt;font-family:"Courier New"'>SET <span class=SpellE>AddressNumber</span> = <span class=SpellE>CLng</span>(Left([<span
+class=SpellE>FullLocation</span>],<span class=SpellE>InStr</span>(1,[<span
+class=SpellE>FullLocation</span>],&quot; &quot;)-1)), </span></p>
+  <p style='line-height:normal'><span style='font-size:10.0pt;font-family:"Courier New"'>    <span
+class=SpellE>DirectionIndicator</span> = <span class=SpellE>CStr</span>(Mid$([<span
+class=SpellE>FullLocation</span>],<span class=SpellE>InStr</span>(1,[<span
+class=SpellE>FullLocation</span>],&quot; &quot;)+1,1)), </span></p>
+  <p style='line-height:normal'><span style='font-size:10.0pt;font-family:"Courier New"'>    Suffix =
+    CStr(Right$([FullLocation],Len([FullLocation])-InStrRev([FullLocation],&quot;
+    &quot;))), </span></p>
+  <p style='line-height:normal'><span style='font-size:10.0pt;font-family:"Courier New"'>    <span class=SpellE>StreetName</span> = </span></p>
+  <p style='line-height:normal'><span style='font-size:10.0pt;font-family:"Courier New"'>      Right$(Left$([<span class=SpellE>FullLocation</span>],<span
+class=SpellE>InStrRev</span>([<span class=SpellE>FullLocation</span>],&quot;
+    &quot;) </span></p>
+  <p style='line-height:normal'><span style='font-size:10.0pt;font-family:"Courier New"'>      Len(Left$([<span class=SpellE>FullLocation</span>],<span
+class=SpellE>InStrRev</span>([<span class=SpellE>FullLocation</span>],&quot; &quot;)-1))- </span></p>
+  <p style='line-height:normal'><span style='font-size:10.0pt;font-family:"Courier New"'>      <span class=SpellE>InStrRev</span>(Left$([<span
+class=SpellE>FullLocation</span>],<span class=SpellE>InStrRev</span>([<span
+class=SpellE>FullLocation</span>],&quot; &quot;)-1),&quot; &quot;))</span></p>
+  <p style='line-height:normal'><span style='font-size:10.0pt;font-family:"Courier New"'>WHERE <span class=SpellE>LocationTypeCode</span> = &quot;A&quot;;</span></p>
+  <p>I then added City and State fields, and began inspecting the data for
+    inconsistencies. For example, “AV” strings were updated to be “AVE” strings,
+    incorrect suffixes (“RD” when the official suffix for the address is “BLVD”)
+    were fixed, and other miscellaneous typographical errors were corrected. The
+    dataset observations were now ready to be geocoded.</p>
+  <p>I used a query to generate a text file with about 340 unique addresses from
+    the dataset, and used Dr. Huang’s Google Geocoder to geocode them. Since Google
+    apparently restricts the number of addresses to be geocoded to 10 per
+    transaction, I had to use a utility to split the original text file  into 34 text files with 10 addresses each,
+    then manually load each one into the geocoder, geocode the addresses, save the
+    results into the same <span class=SpellE>textfile</span>, then close and reopen
+    the geocoder for the next <span class=SpellE>textfile</span>. Once all the text
+    files had been processed, I concatenated them all into 1 text file, removed
+    blank and extra header lines, added Latitude and Longitude elements to the
+    dataset in Access, and updated those elements with the data in the text file.
+    The dataset was now ready to be analyzed. A sample of the dataset in Access
+    ready for analysis in ArcGIS is shown below.</p>
+  
+  <div><img width=768 height=59 src="assets/image007.jpg"></div>
+  
+  <p><i><span style='font-size:10.0pt;line-height:200%'>Fig. 45: A view of the dataset observations ready for
+    analysis in ArcGIS.</span></i></p>
+  <br clear=all style='page-break-before:always'>
+  
+  <p><b>Data Analysis in ArcGIS</b></p>
+  
+  <p>In addition to the dataset, the GIS coordinator for the City of Apache
+    Junction also sent me some base data and a base map that included the city’s
+    municipal boundary. Once the data was imported into ArcMap, I used the Display
+    X,Y function to get the data into the map. After inspecting the resulting full
+    extent of the map, however, I noticed that the scale of the map became very, very
+    small. That was because the street names of some of the intersection
+    observations were so ambiguous, either due to typographical errors or
+    differences from the official version of the street name, that after geocoding
+    the resulting point location was in a few cases hundreds of miles from the City
+    of Apache Junction city limits! Thus, before data analysis could be conducted,
+    these spurious outliers had to be either corrected or removed. I was only able
+    to correct perhaps half a dozen; the rest I simply removed. Below is a snapshot
+    of the map of the dataset ready for analysis.</p>
+    
+  <div><img width=434 height=479 src="assets/image009.png"></div>
+  
+  <p><i><span style='font-size:10.0pt;
+line-height:200%'>Fig. 45: A view of the accidents layer ready for analysis.</span></i></p>
+  <p>Coordinates generated by Google are in the North American HARN Geographic
+    Coordinate System. The standard coordinate system used by the City of Apache
+    Junctions’ GIS department is NAD 1983 HARN <span class=SpellE>StatePlane</span> Arizona Central FIPS 0202, so I re-projected the dataset. I had to save the
+    points layer to a shape file first, then re-add the shape file to the map, as
+    that is a requirement for the Project tool. The data was now properly prepared
+    for the Ripley’s K analysis function.</p>
+  <p>To find a proper value for the functions’ number of distance bands option, I
+    measured the radius of the municipal boundary, then calculated the number of
+    distance bands, rounding down to 400 <span class=SpellE>intl</span> feet (m =
+    meters; ‘ = Intl feet):</p>
+  <p style='line-height:normal'><span style='font-size:10.0pt;font-family:"Courier New"'>    ) 6824.355m = 133.388m * n ==&gt; 51 bands</span></p>
+  <p style='line-height:normal'><span style='font-size:10.0pt;font-family:"Courier New"'>    ) 133.388m * 3.28083 = 437.62335204' ==&gt;
+    band increment</span></p>
+  <p>I chose the <span class=SpellE><span style='font-family:"Courier New"'>Simulate_outer_boundary_values</span></span> option for the boundary correction method option because there are a lot of
+    points in the dataset that are located on the municipal boundary. At first I
+    tried the Municipal Boundary as the Study Area Method, but it was not properly
+    configured for the <span class=SpellE>Ripleys</span> tool, so I chose <span
+class=SpellE><span style='font-family:"Courier New"'>Minimum_Closing_Rectangle</span></span> instead. </p>
+  <p>Due to the very large number of observations in the data set, I did a test
+    run with no permutations to see how long the Ripley’s K function would take to
+    complete. It came back in a reasonable amount of time – 3 minutes – so for the
+    next run I set the number of permutations to 9. The run finished in about an
+    hour and 15 minutes. For both runs, I left the <span class=SpellE><span
+style='font-family:"Courier New"'>Beginning_Distance</span></span> option
+    blank.</p>
+  <p>Running the Nearest Neighbor function was significantly less complex. I
+    simply chose the input layer and used  <span
+class=SpellE><span style='font-family:"Courier New"'>Euclidean_Distance</span></span> as the distance method, and it completed in a couple of minutes. Because I ran
+    this tool before I had re-projected the data, it used chordal distances, but
+    since the study area is far smaller than 30 degrees I assumed that it would run
+    OK.</p>
+  <br clear=all style='page-break-before:always'>
+  <p><b>Results</b></p>
+  <p>The following figures show the resulting output of the Average Nearest
+    Neighbor and Ripley’s K function runs.</p>
+  
+  <div><img width=593 height=831 src="assets/image010.png"></div>
+  <p><i><span style='font-size:10.0pt;
+line-height:200%'>Fig. 45: Average Nearest Neighbor function output.</span></i></p>
+
+  <div><img width=525 height=429 src="assets/image012.png"></div>
+  <p><i><span style='font-size:10.0pt;line-height:200%'>Fig. 45: Ripley’s K function with 9 permutations and a 400’
+    distance increment.</span></i></p>
+    
+  <div><img width=672 height=429 src="assets/image014.jpg"></div>
+  <p><i><span style='font-size:10.0pt;line-height:200%'>Fig. 45: Excel chart of the Ripley’s K function results.</span></i></p>
+  
+  <p><b>Conclusion</b></p>
+  
+  <p>The results show a very high degree of clustering, except for areas close to
+    the municipal boundary. This correlates to how the point dataset looks on the
+    map. There is a strip of extreme clustering along Apache Trail, which is the
+    city’s main <span class=SpellE>thouroughfare</span>, which is to be expected.
+    Also, there is an arm of clustering running into the <span class=SpellE>southest</span> part of the city. It is suspected though, that an important part of why there
+    is such a high degree of clustering is the sheer number of observations in the
+    dataset, within such a small geographic area. If this project were to become
+    part of a larger operation, for example part of my Directed Study project, I
+    would most likely split the dataset into several smaller areas of the city, and
+    analyze each subset separately.</p>
